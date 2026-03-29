@@ -1,4 +1,5 @@
-from typing import Union, List, Tuple, Optional
+from typing import Union, List, Tuple
+
 
 def digital_root(n: Union[int, str]) -> int:
     """
@@ -53,8 +54,27 @@ def digital_root_with_steps(n: Union[int, str]) -> Tuple[int, List[int]]:
         >>> digital_root_with_steps(987)
         (6, [24, 6])
     """
-    # TODO: реализовать
-    pass
+    if isinstance(n, int):
+        if n < 0:
+            n = abs(n)
+        s = str(n)
+    elif isinstance(n, str):
+        s = n.lstrip('-')
+        if not s.isdigit():
+            raise ValueError(f"'{n}' is not a valid number")
+    else:
+        raise ValueError(f"Expected int or str, got {type(n).__name__}")
+    
+    if not s:
+        return 0, []
+    
+    total = sum(int(digit) for digit in s)
+    
+    if total < 10:
+        return total, [total]
+    
+    root, steps = digital_root_with_steps(total)
+    return root, [total] + steps
 
 
 def digital_root_fast(n: int) -> int:
@@ -74,8 +94,11 @@ def digital_root_fast(n: int) -> int:
         >>> digital_root_fast(123)
         6
     """
-    # TODO: реализовать
-    pass
+    if n == 0:
+        return 0
+    if n < 0:
+        n = abs(n)
+    return 1 + (n - 1) % 9
 
 
 def digital_root_batch(numbers: List[Union[int, str]]) -> List[int]:
@@ -92,8 +115,7 @@ def digital_root_batch(numbers: List[Union[int, str]]) -> List[int]:
         >>> digital_root_batch([123, 987, 0])
         [6, 6, 0]
     """
-    # TODO: реализовать
-    pass
+    return [digital_root(num) for num in numbers]
 
 
 def is_digital_root_valid(n: int, expected_root: int) -> bool:
@@ -107,5 +129,4 @@ def is_digital_root_valid(n: int, expected_root: int) -> bool:
     Returns:
         True если expected_root является цифровым корнем n
     """
-    # TODO: реализовать
-    pass
+    return digital_root(n) == expected_root
