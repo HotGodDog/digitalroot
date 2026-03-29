@@ -17,8 +17,26 @@ def digital_root(n: Union[int, str]) -> int:
         >>> digital_root(123)
         6
     """
-    # TODO: реализовать
-    pass
+    if isinstance(n, int):
+        if n < 0:
+            n = abs(n)
+        s = str(n)
+    elif isinstance(n, str):
+        s = n.lstrip('-')
+        if not s.isdigit():
+            raise ValueError(f"'{n}' is not a valid number")
+    else:
+        raise ValueError(f"Expected int or str, got {type(n).__name__}")
+    
+    if not s:
+        return 0
+    
+    total = sum(int(digit) for digit in s)
+    
+    if total < 10:
+        return total
+    
+    return digital_root(total)
 
 
 def digital_root_with_steps(n: Union[int, str]) -> Tuple[int, List[int]]:
