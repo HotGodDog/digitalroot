@@ -10,3 +10,8 @@
 - `123` → 1+2+3 = **6**
 - `987` → 9+8+7 = 24 → 2+4 = **6**
 - `999` → 9+9+9 = 27 → 2+7 = **9**
+
+## Ссылки
+
+- GitHub: https://github.com/HotGodDog/digitalroot
+- TestPyPI: https://test.pypi.org/project/digitalroot/
